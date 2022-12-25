@@ -1,9 +1,8 @@
 ﻿module TradingGame.Card
 
-type Card(name: string, health: uint, damage : uint, life: uint,armor: uint, cost : uint,speed : uint ) =
+type Card(name: string, health: int, damage :int,armor: int, cost : int,speed : int ) =
     member this.Health = health
     member this.Damage = damage
-    member this.Life = life
     member this.Cost = cost
     member this.Speed = speed
     member this.Name = name

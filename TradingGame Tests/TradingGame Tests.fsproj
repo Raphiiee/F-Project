@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="GameLogicTests.fs" />
+    <Compile Include="GameLogicTests\ElementGameLogicTests.fs" />
+    <Compile Include="GameLogicTests\RoundsTillKoGameLogicTests.fs" />
   </ItemGroup>
 
   <ItemGroup>
