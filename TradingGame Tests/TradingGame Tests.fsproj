@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="GameLogicTests\ElementGameLogicTests.fs" />
     <Compile Include="GameLogicTests\RoundsTillKoGameLogicTests.fs" />
+    <Compile Include="GameLogicTests\HealthLeftGameLogicTests.fs" />
+    <Compile Include="GameLogicTests\CalculateDamageGameLogicTests.fs" />
   </ItemGroup>
 
   <ItemGroup>

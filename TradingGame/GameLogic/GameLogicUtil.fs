@@ -1,25 +1,48 @@
 ﻿module TradingGame.GameLogic.GameLogicUtil
 
+open System
 open TradingGame.Card
+open TradingGame.Enums
+open TradingGame.Enums.CardElementEnum
 
-let GetEffectivenessModifier (attackingCardType : uint, defendingCardType: uint) : float =
+let modulo ( x: int    , m: int) : int =
+    (x%m + m)%m;
+
+let  GetEffectivenessModifier (attackingCardType : CardElementEnum, defendingCardType: CardElementEnum) : float =
      
-     if ((uint)(attackingCardType + (uint)1)%(uint)4) = defendingCardType then
+     let attackingCardElementValue = (int) attackingCardType
+     let defendingCardElementValue = (int) defendingCardType
+     if (attackingCardElementValue + 1)%4= defendingCardElementValue then
          2
-     else if ((uint)(attackingCardType - (uint)1)%(uint)4) = defendingCardType then
+     else if modulo((attackingCardElementValue - 1),4) = defendingCardElementValue then
          0.5
      else
          1
-
-let CalculateRoundsTillKo (attackingCard: Card, defendingCard: Card) : int =
-    
+         
+let CalculateDamageDealt (attackingCard: Card, defendingCard: Card) : int =
     if(attackingCard.Damage < defendingCard.Armor) then
         -1
     else
-        let damageDealt = attackingCard.Damage - defendingCard.Armor
+      let damageDealt : float = float(attackingCard.Damage - defendingCard.Armor)
+      let effectiveDamageDealt = int (System.Math.Round(damageDealt * GetEffectivenessModifier(attackingCard.Element, defendingCard.Element), MidpointRounding.AwayFromZero))
+      effectiveDamageDealt
+let CalculateRoundsTillKo (attackingCard: Card, defendingCard: Card) : int =
+    
+    
+        let damageDealt = CalculateDamageDealt(attackingCard, defendingCard)
         
-        let RoundsTillKo : int = (defendingCard.Health / damageDealt)
-        
-        if attackingCard.Speed > defendingCard.Speed && RoundsTillKo > 0 then
-            (int)RoundsTillKo - 1
-        else (int) RoundsTillKo
+        if damageDealt < 1 then
+            -1
+        else 
+            let RoundsTillKo : int = (defendingCard.Health / damageDealt)
+            
+            if attackingCard.Speed > defendingCard.Speed && RoundsTillKo > 0 then
+                (int)RoundsTillKo - 1
+            else (int) RoundsTillKo
+
+let CalculateHealthLeft (attackingCard: Card, defendingCard: Card, roundsTillKo : int) : int =
+    let damageDealt = CalculateDamageDealt(defendingCard, attackingCard)
+    if damageDealt < 1 then
+        -1
+    else
+         attackingCard.Health - damageDealt*roundsTillKo
