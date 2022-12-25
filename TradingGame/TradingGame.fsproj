@@ -7,6 +7,10 @@
 
   <ItemGroup>
     <Compile Include="Program.fs" />
+    <Compile Include="TradingCard.fs" />
+    <Compile Include="Enums\CardTypeEnum.fs" />
+    <Compile Include="Card.fs" />
+    <Compile Include="GameLogic\GameLogicUtil.fs" />
   </ItemGroup>
 
 </Project>
