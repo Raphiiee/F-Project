@@ -26,6 +26,7 @@ let CalculateDamageDealt (attackingCard: Card, defendingCard: Card) : int =
       let damageDealt : float = float(attackingCard.Damage - defendingCard.Armor)
       let effectiveDamageDealt = int (System.Math.Round(damageDealt * GetEffectivenessModifier(attackingCard.Element, defendingCard.Element), MidpointRounding.AwayFromZero))
       effectiveDamageDealt
+      
 let CalculateRoundsTillKo (attackingCard: Card, defendingCard: Card) : int =
     
     
@@ -40,9 +41,9 @@ let CalculateRoundsTillKo (attackingCard: Card, defendingCard: Card) : int =
                 (int)RoundsTillKo - 1
             else (int) RoundsTillKo
 
-let CalculateHealthLeft (attackingCard: Card, defendingCard: Card, roundsTillKo : int) : int =
-    let damageDealt = CalculateDamageDealt(defendingCard, attackingCard)
+let CalculateHealthLeft (survivingCard: Card, dyingCard: Card, roundsTillKo : int) : int =
+    let damageDealt = CalculateDamageDealt(dyingCard, survivingCard)
     if damageDealt < 1 then
         -1
     else
-         attackingCard.Health - damageDealt*roundsTillKo
+        survivingCard.Health - damageDealt*roundsTillKo

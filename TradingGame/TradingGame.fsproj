@@ -9,8 +9,10 @@
     <Compile Include="Program.fs" />
     <Compile Include="TradingCard.fs" />
     <Compile Include="Enums\CardElementEnum.fs" />
+    <Compile Include="Enums\WinnerEnum.fs" />
     <Compile Include="Card.fs" />
     <Compile Include="GameLogic\GameLogicUtil.fs" />
+    <Compile Include="GameLogic\GameLogic.fs" />
   </ItemGroup>
 
 </Project>
