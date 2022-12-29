@@ -2,7 +2,6 @@
 
 open System
 open TradingGame.Card
-open TradingGame.Enums
 open TradingGame.Enums.CardElementEnum
 
 let modulo ( x: int    , m: int) : int =

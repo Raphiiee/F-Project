@@ -1,7 +1,6 @@
 ﻿module TradingGame.GameLogic.GameLogic
 
 open TradingGame.Card
-open TradingGame.Enums
 open TradingGame.Enums.WinnerEnum
 
 let Battle (Player1Card: Card, Player2Card: Card) : WinnerTeam =
