@@ -19,24 +19,24 @@ let Battle (Player1Card: Card, Player2Card: Card) : WinnerTeam =
 let rec PlayGameRec (deck1: List<Card>, deck2: List<Card>, deck1Pointer: int, deck2Pointer: int) =
     if (deck1Pointer = deck1.Length) then
         printfn "Player 2 won the Game"
-    else if (deck2Pointer = deck2.Length) then
+ 
+    elif (deck2Pointer = deck2.Length) then
         printfn "Player 1 won the Game"
-    
-    let player1Card =  deck1[deck1Pointer]
-    player1Card.PrintCard()
-    let player2Card =  deck2[deck2Pointer]
-    player2Card.PrintCard()
-    let winnerOfRound = Battle(deck1[deck1Pointer], deck2[deck2Pointer])
+    else     
+        let player1Card =  deck1[deck1Pointer]
+        player1Card.PrintCard()
+        let player2Card =  deck2[deck2Pointer]
+        player2Card.PrintCard()
+        let winnerOfRound = Battle(deck1[deck1Pointer], deck2[deck2Pointer])
 
-    match winnerOfRound with
-    | WinnerTeam.Player1Win -> 
-        printfn $"{player1Card.Name} won"
-        PlayGameRec(deck1, deck2, deck1Pointer, deck2Pointer + 1)
-    
-    | WinnerTeam.Player2Win ->
-        printfn $"{player2Card.Name} won"
-        PlayGameRec(deck1, deck2, deck1Pointer + 1, deck2Pointer)
-    
+        match winnerOfRound with
+        | WinnerTeam.Player1Win -> 
+            printfn $"{player1Card.Name} won"
+            PlayGameRec(deck1, deck2, deck1Pointer, deck2Pointer + 1)
+        
+        | WinnerTeam.Player2Win ->
+            printfn $"{player2Card.Name} won"
+            PlayGameRec(deck1, deck2, deck1Pointer + 1, deck2Pointer)
     
 
 let rec PlayGame (deck1: List<Card>, deck2: List<Card>) =
