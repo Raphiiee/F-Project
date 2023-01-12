@@ -25,7 +25,9 @@ type Card =
             }
 
         member this.PrintCard() =
-        do printfn $"Id: {this.Id}\t| Card '{this.Name}' \tElement {this.Element} | Health {this.Health}, Armor {this.Armor}, Damage {this.Damage}, Speed {this.Speed}"        
+        do 
+            printf $"Id: {this.Id}\t| Card '{this.Name}' {new String(' ', 35 - this.Name.Length)} Element {this.Element} {new String(' ', 5 - this.Element.ToString().Length)}| "
+            printfn $"""Health {String.Format("{0:D2}", this.Health)}, Armor {String.Format("{0:D2}", this.Armor)}, Damage {String.Format("{0:D2}", this.Damage)}, Speed {String.Format("{0:D2}", this.Speed)}"""        
 
     end
 
@@ -47,15 +49,11 @@ let generateListOfCards () : list<Card> =
         LanguagePrimitives.EnumOfValue (random.Next(1,100) % 4)))]
 
 let getRandomCardsFromList (listOfCards: list<Card>, amount: int) : list<Card> =
-    [for _ in 1 .. amount do yield (listOfCards[random.Next(1,9999) % listOfCards.Length])]
+    [for _ in 1 .. amount do yield (listOfCards[random.Next(1, Int32.MaxValue) % listOfCards.Length])]  
 
-(* Maybe schauen ob ich die random unique getten kann
-let getRandomUniqueCardsFromList (listOfCards: list<Card>, amount: int) : list<Card> =
-    [for _ in 1 .. amount do yield (listOfCards[random.Next(1,9999) % listOfCards.Length])] *)
+let printListOfCards (deck: list<Card>) = deck |> List.sortBy(fun x -> x.Id ) |> Seq.iter (fun i -> i.PrintCard())
 
-let printListOfCards (deck: list<Card>) = deck |> Seq.iter (fun i -> i.PrintCard())
-
-let filterStack (stack: list<Card>, cardIds: int): list<Card> = stack |> List.filter(fun x -> x.Id = cardIds)
+let filterStack (stack: list<Card>, cardIds: int): list<Card> = stack |> List.filter(fun x -> x.Id = cardIds) |> List.distinct
 
 let rec searchCard (stack: list<Card>) (newDeck: list<Card>) (clearPrint: bool) : list<Card> = 
     if clearPrint then
@@ -74,10 +72,17 @@ let rec searchCard (stack: list<Card>) (newDeck: list<Card>) (clearPrint: bool) 
     if result.Length = 0 then
         printfn $"Keine Karte mit Id '{searchId}' gefunden"
         searchCard stack newDeck false
-    elif newDeck.Length < 4 then
-        searchCard stack (List.append newDeck result) true
     else
-        List.append newDeck result
+        let stackCardCount = stack |> List.where(fun x -> x.Id = result.Head.Id)
+        let deckCardCount = newDeck |> List.where(fun x -> x.Id = result.Head.Id)
+        if deckCardCount.Length = stackCardCount.Length then
+            printfn $"Karte mit Id '{searchId}' zu oft im Deck"
+            searchCard stack newDeck false
+        elif newDeck.Length < 4 then
+            let decksss = List.append newDeck result
+            searchCard stack (List.append newDeck result) true
+        else
+            List.append newDeck result
 
 let createNewDeckFromStackCards (stack: list<Card>) : list<Card> = 
     let newDeck = List.Empty

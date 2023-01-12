@@ -18,10 +18,10 @@ let Battle (Player1Card: Card, Player2Card: Card) : WinnerTeam =
 
 let rec PlayGameRec (deck1: List<Card>, deck2: List<Card>, deck1Pointer: int, deck2Pointer: int) =
     if (deck1Pointer = deck1.Length) then
-        printfn "Player 2 won the Game"
+        printfn "Player won the Game"
  
     elif (deck2Pointer = deck2.Length) then
-        printfn "Player 1 won the Game"
+        printfn "Computer won the Game"
     else     
         let player1Card =  deck1[deck1Pointer]
         player1Card.PrintCard()
