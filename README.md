@@ -13,3 +13,5 @@ Speed Value says who attacks first
 
 elements have 1 very effective (2x damage), normal (1x damage) and ineffective (0,5x Damage)
 All values are rounded up
+
+Ein Projekt von Rene Sorger, Raphael Steindl

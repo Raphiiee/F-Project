@@ -2,6 +2,7 @@
 
 open TradingGame.Card
 open TradingGame.GameLogic
+open Utils
 open System
 
 type State = 
@@ -10,6 +11,7 @@ type State =
     | PrintStack
     | PrintPlayerDeck
     | PrintComputerDeck
+    | PrintAllGeneratedCards
     | EditDeck
     | Battle
 
@@ -26,6 +28,7 @@ let read(input: int) =
     | input when input = 3 -> EditDeck
     | input when input = 4 -> Battle
     | input when input = 42 -> PrintComputerDeck
+    | input when input = 44 -> PrintAllGeneratedCards
     | _ -> 
         printfn "---Error bei der Eingabe!---" 
         Error
@@ -54,6 +57,9 @@ let printPlayerDeck (cards: Cards) =
 
 let printComputerDeck (cards: Cards) = 
     Card.printListOfCards(cards.ComputerDeck)
+
+let printAllGeneratedCards (cards: Cards) = 
+    Card.printListOfCards(cards.AllCards)
 
 let editPlayerDeck (cards: Cards) =
     let allCards = cards.AllCards
@@ -101,6 +107,11 @@ let evaluate (cards: Cards) (state: State) =
         continueClear()
         printMainMenu()
         (state, cards)
+    | PrintAllGeneratedCards ->
+        printAllGeneratedCards(cards)
+        continueClear()
+        printMainMenu()
+        (state, cards)
     | _ -> 
         continueClear()
         printMainMenu()
@@ -109,7 +120,7 @@ let evaluate (cards: Cards) (state: State) =
 
 let rec loop (state: State, cards: Cards) =
     Console.ReadLine()
-    |> int32
+    |> Utils.convertStringToInt
     |> read
     |> evaluate cards
     |> loop

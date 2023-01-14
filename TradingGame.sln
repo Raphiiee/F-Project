@@ -5,13 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TradingGame", "TradingGame\TradingGame.fsproj", "{CF3C93FE-5484-40D0-885B-EA0277F29317}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sample Project", "Sample Project\Sample Project.fsproj", "{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{2C6A8DE5-90A2-4ABE-A6CB-DA113256FF3A}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sample Project Tests", "Sample Project Tests\Sample Project Tests.fsproj", "{EC7B8414-1C8F-4ADB-B763-4F404005CF19}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TradingGame Tests", "TradingGame Tests\TradingGame Tests.fsproj", "{FFB24814-EC3E-4A54-AA4F-7B2D9D0353DC}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TradingGame Tests", "TradingGame Tests\TradingGame Tests.fsproj", "{FFB24814-EC3E-4A54-AA4F-7B2D9D0353DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +17,6 @@ Global
 		{CF3C93FE-5484-40D0-885B-EA0277F29317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF3C93FE-5484-40D0-885B-EA0277F29317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF3C93FE-5484-40D0-885B-EA0277F29317}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC7B8414-1C8F-4ADB-B763-4F404005CF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC7B8414-1C8F-4ADB-B763-4F404005CF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC7B8414-1C8F-4ADB-B763-4F404005CF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC7B8414-1C8F-4ADB-B763-4F404005CF19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FFB24814-EC3E-4A54-AA4F-7B2D9D0353DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFB24814-EC3E-4A54-AA4F-7B2D9D0353DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB24814-EC3E-4A54-AA4F-7B2D9D0353DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,10 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{9CF468D7-D9AF-4D04-9C84-AE510FEDBE33} = {2C6A8DE5-90A2-4ABE-A6CB-DA113256FF3A}
-		{EC7B8414-1C8F-4ADB-B763-4F404005CF19} = {2C6A8DE5-90A2-4ABE-A6CB-DA113256FF3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A7F22E9-2E2B-4640-93F6-BE286B6A2BA6}
