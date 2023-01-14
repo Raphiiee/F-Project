@@ -1,6 +1,7 @@
 ﻿module TradingGame.Card
 
 open TradingGame.Enums.CardElementEnum
+open Utils
 open System
 
 type Card =
@@ -35,11 +36,11 @@ let random = new System.Random()
 
 let name = ["Albert Tross";"Harry Bo";"Heidi Kraut";"Hein Blöd";"Hella Wahnsinn";"Olle Schleuder";"Peter Petersilie";"Herta Wurst";"Axel Haar";"Jo Ghurt";"Johannes Kraut";"Rainer Zufall";"Dick Tator";"Rosa Hirn";"Ernst Haft";"Lee Kör";"Klaus Trophobie";"Sunny Täter";"Klara Fall";"Timo Tee";"Wilma Streit"]
 
-let nameTitel = ["";"der/die Dünne";"der/die Junge";"der/die Alte";"der/die Salizige";"der/die Taktvolle";"der/die Rohe";"";"der/die Starke";"der/die Schwache";"der/die Mutige";"der/die Elastische";"der/die Moderne";"der/die Schnelle";"der/die Langsame";"der/die Gerechte";"";"";"";"";"";"";"";"";"";"";""]
+let nameTitel = ["der/die Dünne";"der/die Junge";"der/die Alte";"der/die Salizige";"der/die Taktvolle";"der/die Rohe";"";"der/die Starke";"der/die Schwache";"der/die Mutige";"der/die Elastische";"der/die Moderne";"der/die Schnelle";"der/die Langsame";"der/die Gerechte";"";"";"";""]
 
 let generateListOfCards () : list<Card> = 
     [for i in 1 .. 100 do yield (Card(
-        $"{name[random.Next(1,100) % name.Length]} {nameTitel[random.Next(1,100) % nameTitel.Length]}".Trim(),
+        $"{name[random.Next(1,Int32.MaxValue) % name.Length]} {nameTitel[random.Next(1,Int32.MaxValue) % nameTitel.Length]}".Trim(),
         i, 
         random.Next(1,100), 
         random.Next(1,100), 
@@ -55,6 +56,11 @@ let printListOfCards (deck: list<Card>) = deck |> List.sortBy(fun x -> x.Id ) |>
 
 let filterStack (stack: list<Card>, cardIds: int): list<Card> = stack |> List.filter(fun x -> x.Id = cardIds) |> List.distinct
 
+let countSpecificCards (stack: list<Card>) (card: list<Card>) = 
+    match card with
+    | card when card.IsEmpty -> 0
+    | card -> stack |> List.where(fun x -> x.Id = card.Head.Id) |> List.length
+
 let rec searchCard (stack: list<Card>) (newDeck: list<Card>) (clearPrint: bool) : list<Card> = 
     if clearPrint then
         Console.Clear()
@@ -67,22 +73,24 @@ let rec searchCard (stack: list<Card>) (newDeck: list<Card>) (clearPrint: bool) 
         printfn $"Sie können noch {5-newDeck.Length} Karten auswählen"
         printfn "Bitte geben Sie die gewünschte Karten Id ein"
 
-    let searchId = Console.ReadLine() |> int
+    let searchId = Console.ReadLine() |> Utils.convertStringToInt
     let result = filterStack (stack, searchId)
-    if result.Length = 0 then
+    let stackCardCount = countSpecificCards stack result
+    let deckCardCount = countSpecificCards newDeck result
+
+    match result with
+    | result when searchId = -1 -> 
+        printfn $"Fehlerhafte Eingabe!"
+        searchCard stack newDeck false
+    | result when result.Length = 0 -> 
         printfn $"Keine Karte mit Id '{searchId}' gefunden"
         searchCard stack newDeck false
-    else
-        let stackCardCount = stack |> List.where(fun x -> x.Id = result.Head.Id)
-        let deckCardCount = newDeck |> List.where(fun x -> x.Id = result.Head.Id)
-        if deckCardCount.Length = stackCardCount.Length then
-            printfn $"Karte mit Id '{searchId}' zu oft im Deck"
-            searchCard stack newDeck false
-        elif newDeck.Length < 4 then
-            let decksss = List.append newDeck result
-            searchCard stack (List.append newDeck result) true
-        else
-            List.append newDeck result
+    | result when deckCardCount = stackCardCount ->
+        printfn $"Karte mit Id '{searchId}' zu oft im Deck"
+        searchCard stack newDeck false
+    | result when newDeck.Length < 4 ->
+        searchCard stack (List.append newDeck result) true
+    | _ -> List.append newDeck result
 
 let createNewDeckFromStackCards (stack: list<Card>) : list<Card> = 
     let newDeck = List.Empty

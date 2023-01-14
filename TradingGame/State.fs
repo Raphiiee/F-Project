@@ -2,6 +2,7 @@
 
 open TradingGame.Card
 open TradingGame.GameLogic
+open Utils
 open System
 
 type State = 
@@ -109,7 +110,7 @@ let evaluate (cards: Cards) (state: State) =
 
 let rec loop (state: State, cards: Cards) =
     Console.ReadLine()
-    |> int32
+    |> Utils.convertStringToInt
     |> read
     |> evaluate cards
     |> loop
